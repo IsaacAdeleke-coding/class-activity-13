@@ -20,11 +20,11 @@ int main() {
     cin >> numTemps;
 
     // Edge case: Handle invalid input or non-positive number of temperatures
-    while (cin.fail() || numTemps <= 0) {
+    if (cin.fail() || numTemps <= 0) {
         cin.clear();  // Clear error flags
         cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Ignore invalid input
-        cout << "Please enter a valid positive number of temperatures: ";
-        cin >> numTemps;
+        cout << "Invalid input or non-positive number. Exiting program." << endl;
+        return 1;  // Exit with error code
     }
 
     // Get temperatures from the user
@@ -33,18 +33,18 @@ int main() {
         cin >> temp;
 
         // Edge case: Handle invalid temperature input
-        while (cin.fail()) {
+        if (cin.fail()) {
             cin.clear();  // Clear error flags
             cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Ignore invalid input
-            cout << "Invalid input. Enter a valid temperature: ";
-            cin >> temp;
+            cout << "Invalid temperature input. Exiting program." << endl;
+            return 1;  // Exit with error code
         }
 
         temperatures.push_back(temp);  // Add the temperature to the list
         sum += temp;  // Add to the total sum
     }
 
-    // Edge case: Check if numTemps is still valid after input
+    // Edge case: Check if numTemps is valid before calculating the average
     if (numTemps > 0) {
         // Calculate the average
         double average = sum / numTemps;
